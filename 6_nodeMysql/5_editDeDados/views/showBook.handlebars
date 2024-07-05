@@ -1,0 +1,16 @@
+{{#if auth}}
+<h1>Detalhes do livro</h1>
+<div class="div-book">
+    <div class="div-info">
+        <p>Titulo do livro: {{book.title}}</p>
+        <p>Quantidade de pagina: {{book.pagesqty}}</p>
+    </div>
+    <div class="div-edit">
+       <a href="/books/edit/{{book.id}}">Edit</a>
+    </div>
+</div>
+    {{else}}
+        <h1>Livro não existe</h1>
+        <a class="btn" href="/books">Voltar</a>
+{{/if}}
+

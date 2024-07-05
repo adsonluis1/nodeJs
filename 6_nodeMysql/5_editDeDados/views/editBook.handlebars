@@ -1,0 +1,21 @@
+{{!-- book --}}
+{{#if auth}}
+<form action="/book/edit/add" method="post">
+        <input type="hidden" name="id" value="{{book.id}}">
+        <label>
+            titulo
+            <input value="{{book.title}}" placeholder="Digite o titulo" type="text" name="title">
+        </label>
+
+        <label>
+            folhas
+            <input value="{{book.pagesqty}}" placeholder="Digite a quantidade de folhas" type="number" name="pagesqty">
+        </label>
+        <input type="submit" value="Editar">
+        <a href="/books">Ir para catalogo</a>
+</form>
+
+    {{else}}
+        <h1>Livro não encontrado</h1>
+        <a href="/books">Ir para catalogo</a>
+{{/if}}
