@@ -1,0 +1,17 @@
+<h1>Adicionar livro novo</h1>
+
+<div>
+    <form action="/books/add" method="post">
+        <label>
+            titulo
+            <input required minlength="3" placeholder="Digite o titulo" type="text" name="title">
+        </label>
+
+        <label>
+            folhas
+            <input required min="1" placeholder="Digite a quantidade de folhas" type="number" name="pagesqty">
+        </label>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>
