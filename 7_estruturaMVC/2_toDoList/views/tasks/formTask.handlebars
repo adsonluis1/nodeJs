@@ -1,0 +1,15 @@
+<h1>Criando tarefa</h1>
+
+<form action="/tasks/add" method="post">
+    <label>
+        Titulo da tarefa
+        <input required maxlength="30" minlength="3" type="text" name="title">
+    </label>
+
+    <label>
+        Descrição da tarefa
+        <textarea required minlength="3" maxlength="255" name="description"></textarea>
+    </label>
+
+    <button type="submit" title="Enviar"> enviar <i class="bi bi-send"></i></button>
+</form>

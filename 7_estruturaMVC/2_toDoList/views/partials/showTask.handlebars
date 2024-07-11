@@ -1,0 +1,30 @@
+<div class="div-task" id="{{id}}">
+    {{#if done}}
+        <div class="div-task-title-done">
+            <h2>{{title}}</h2>
+            <p>{{description}}</p>
+        </div>
+        <form action="/tasks/edit" method="post">
+            <input type="hidden" name="title" value="{{title}}">
+            <input type="hidden" name="description" value="{{description}}">
+            <input type="hidden" name="id" value="{{id}}">
+            <input type="hidden" name="done" value="{{done}}">
+            <button class="button-check" type="submit"><i class="bi bi-x-circle"></i></button>
+            <a href="/tasks/delete/{{id}}"><i class="bi bi-trash"></i></a>
+        </form>
+            {{else}}
+             <div class="div-task-title-nodone">
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
+            </div>
+            <form action="/tasks/edit" method="post">
+                <input type="hidden" name="title" value="{{title}}">
+                <input type="hidden" name="description" value="{{description}}">
+                <input type="hidden" name="id" value="{{id}}">
+                <input type="hidden" name="id" value="{{id}}">
+                <input type="hidden" name="done" value="{{done}}">
+                <button class="button-nocheck" type="submit"><i class="bi bi-check-square"></i></button>
+                <a href="/tasks/delete/{{id}}"><i class="bi bi-trash"></i></a>
+            </form>
+    {{/if}}
+</div>
