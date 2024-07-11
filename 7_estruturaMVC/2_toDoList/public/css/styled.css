@@ -1,0 +1,83 @@
+*{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a, input[type='submit']{
+    cursor: pointer;
+}
+
+/* header */
+header{
+    background-color: darkblue;
+    padding: 30px 10px;
+}
+
+header nav {
+    display: flex;
+    gap: 20px;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+
+/* form */
+
+label{
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+textarea{
+    max-width: 300px;
+    max-height: 150px;
+    min-width: 300px;
+    min-height: 150px;
+}
+
+/* div task */
+
+.div-task{
+    display: flex;
+    justify-content: space-between;
+    border:  1px solid black;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.div-task label{
+    display: flex;
+    flex-direction: row !important;
+}
+
+.div-task-title-done{
+    text-decoration: line-through;
+    color: rgba(128, 128, 128, 0.268);
+}
+
+button[type="submit"]{
+    padding: 6px;
+    border-radius: 5px;
+    background-color: green;
+    border: none;
+    color: white;
+}
+
+.button-check{
+    background-color: orange !important;
+}
+
+form a {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: red;
+    text-decoration: none;
+    color: white;
+}
