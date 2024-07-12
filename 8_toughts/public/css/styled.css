@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+}
+
+body {
+    background-color: blueviolet;
+}
+
+/* header */
+header{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(47, 47, 254);
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+header img {
+    width: 80px;
+    height: 100px;
+}
+
+header nav{
+    display: flex;
+    gap: 20px;
+}
+
+header nav a{
+    font-size: 1.3em;
+    color: white;
+    text-decoration: none;
+}
+
+/* main */
+
+main {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: calc(100vh - 130px);
+    background-color: rgb(47, 47, 254);
+    padding: 10px;
+}
+
+/* home */
+
+.pensamentos-container h1{
+    margin-bottom: 20px;
+}
+
+/* pensamentos */
+.div-pensamentos{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    border-bottom: 2px solid blueviolet;
+    padding: 10px;
+}
+
+.div-title{
+    margin-bottom: 10px;
+}
+
+.div-title h2{
+    font-size: 1.5em;
+}
+
+.div-title h3{
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.568);
+}
+
+/* form user register */
+
+.done{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: blueviolet;
+    gap: 15px;
+    font-size: 1.4em;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.done a {
+    text-decoration: none; 
+    background-color: rgb(47, 47, 254) !important;
+}
+
+
+#user-register h1, #login-container h1{
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#user-register form, #login-container form{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 20px;
+}
+
+#user-register form label, #login-container form label{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding-bottom: 10px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#user-register form input, #login-container form input{
+    border: none;
+    border-radius: 5px;
+    color: blueviolet;
+    padding: 5px;
+    width: 300px;
+}
+
+#user-register form input:hover, #login-container form input:hover{
+    transition: .3s;
+    width: 310px;
+    box-shadow: 0px 3px 3px blueviolet;
+}
+
+#user-register form button[type="submit"], .done a, #login-container form button{
+    background-color: blueviolet;    
+    border: none;
+    cursor: pointer; 
+    border-radius: 5px;
+    font-size: 1.3em;
+    padding: 5px;
+}
+
+.err {
+    color: red;
+}
