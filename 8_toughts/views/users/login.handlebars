@@ -1,0 +1,23 @@
+<section id="login-container">
+    <h1>Login</h1>
+    {{#with erros}}
+    <form action="/user/login" method="post">
+        <label>
+            Email
+            <input required placeholder="Digite seu endereço de email" type="email" name="email">
+            {{#if email}}
+                <p class="err">Esse email não está registrado</p>
+            {{/if}}
+        </label>
+        <label>
+            Senha
+            <input required placeholder="Digite seu endereço de email" type="password" name="senha">
+             {{#if senha}}
+                <p class="err">Senha incorreta</p>
+            {{/if}}
+        </label>
+    {{/with}}
+
+        <button type="submit">Entrar <i class="bi bi-box-arrow-in-right"></i></button>
+    </form>
+</section>
