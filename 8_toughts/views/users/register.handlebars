@@ -1,0 +1,43 @@
+<section id="user-register">
+    {{#if done}}
+    <div class="done">
+        <p>Usuario cadastrado !!</p>
+        <a href="/users/login">Ir para o login</a>
+    </div>
+    {{/if}}
+
+{{#with erros}}
+    <h1>Registro</h1>
+    
+    <form action="/user/create" method="post">
+        <label>
+            Nome
+            <input required type="text" name="nome" placeholder="Digite seu nome de usuario">
+        </label>    
+
+        <label>
+            Email
+            <input required type="email" name="email" placeholder="Digite seu endereço de email">
+        </label>
+
+        <label>
+            Senha
+            <input required type="password" name="senha" placeholder="Digite sua senha">
+        </label>
+
+         <label>
+            Confirme a Senha
+            <input required type="password" name="senhaConfirme" placeholder="Repita sua senha">
+        </label>
+        {{#if err}}
+            <p class="err">Algum dado está incorreto verifique a senha e o email</p>
+        {{/if}}
+
+        {{#if email}}
+            <p class="err">Email já cadastrado</p>
+        {{/if}}
+
+        <button type="submit">Registrar <i class="bi bi-send"></i></button>
+    </form>
+</section>
+{{/with}}
