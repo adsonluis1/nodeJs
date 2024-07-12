@@ -1,4 +1,5 @@
 const Users = require('../models/Users')
+const bcrypt = require('bcryptjs')
 
 async function checkingEmailExists (email){
     const vEmail = await Users.findAll({where:{email:email}})
@@ -29,8 +30,7 @@ module.exports = class UsersControlls {
             email:false
         }
 
-        console.log('foi')
-        const account = await Users.findAll({raw:true,where:{email:email}})
+        let account = await Users.findAll({raw:true,where:{email:email}})
         // check exist account
         if(account.length == 0){
             erros.email = true
@@ -43,9 +43,12 @@ module.exports = class UsersControlls {
             res.render('users/login',{erros})
             return
         }
-
+        account = account[0]
         
-        console.log(account)
+        req.session.account = account
+        req.session.save(()=>{
+            res.redirect('/')
+        })
     }
 
     static async createAccount(req, res){
@@ -72,13 +75,17 @@ module.exports = class UsersControlls {
             return
         }
 
+        // fortificando a senha
+        const salt = bcrypt.genSaltSync(10)
+        const hashedSenha = bcrypt.hashSync(senha, salt)
+
         // dps da verificação
-        const newCount = {
+        const newAccount = {
             email,
             nome,
-            senha
+            senha:hashedSenha
         }
-        Users.create(newCount)
+        Users.create(newAccount)
         erros.err = false
         done = true
         res.render('users/register',{erros,done})
