@@ -14,8 +14,13 @@
         </picture>
         <nav>
             <a href="/">Pensamentos</a>
-            <a href="/user/login" title="Entre na sua conta">Entrar</a>
-            <a href="/user/register" title="Faça o registro de uma conta">Registrar</a>
+            {{#if session.account}}                
+                <a href="/user/login" title="Entre na sua conta">Dashbord</a>
+                <a href="/user/register" title="Faça o registro de uma conta">Sair</a>
+            {{else}}
+                <a href="/user/login" title="Entre na sua conta">Entrar</a>
+                <a href="/user/register" title="Faça o registro de uma conta">Registrar</a>
+            {{/if}}
         </nav>
     </header>
 
