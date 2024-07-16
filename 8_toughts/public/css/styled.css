@@ -4,9 +4,14 @@
     box-sizing: border-box;
     color: white;
 }
+/* rgb(47, 47, 254) */
+:root {
+    --main-color: #353139;
+    --secundare-color: blueviolet;
+}
 
 body {
-    background-color: blueviolet;
+    background-color: var(--secundare-color);
 }
 
 input{
@@ -16,7 +21,7 @@ input{
 h1{
     display: flex;
     align-items: center;
-    background-color: blueviolet;
+    background-color: var(--secundare-color);
     padding: 10px;
     font-size: 2em;
     margin-bottom: 20px;
@@ -28,7 +33,8 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(47, 47, 254);
+    /* background-color: ; */
+    background-color: var(--main-color);
     padding: 10px;
     margin-bottom: 5px;
 }
@@ -49,23 +55,60 @@ header nav a{
     text-decoration: none;
 }
 
+header nav a:hover{
+    transition: .3s;
+    color: var(--secundare-color);
+}
+
 /* main */
 
 main {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    height: calc(100vh - 130px);
-    background-color: rgb(47, 47, 254);
+    min-height: calc(100vh - 130px);
+    /* background-color: rgb(47, 47, 254); */
+    background-color: var(--main-color);
     padding: 10px;
 }
 
 /* home */
+
+/* seartch */
+
+#form-seartch{
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 20px;
+}
+
+#form-seartch > div{
+    display: flex;
+    align-items: center;
+}
+
+#form-seartch > div input{
+    border-radius: 5px 0px 0px 5px !important;
+    padding: 8px !important;
+}
+
+#form-seartch > div input:focus{
+    box-shadow: 0;
+    border: 2px solid var(--secundare-color);
+    outline: 0;
+}
+
+#form-seartch > div button{
+    padding: 8px 10px;
+    border-radius: 0px 5px 5px 0px;
+    background-color: var(--secundare-color);
+    border: none;
+}
 
 /* pensamentos */
 .div-pensamentos, .div-myPensamentos{
     display: flex;
     gap: 10px;
     flex-direction: column;
-    border: 2px solid blueviolet;
+    border: 2px solid var(--secundare-color);
     padding: 10px;
     margin-bottom: 20px;
 }
@@ -87,7 +130,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: blueviolet;
+    background-color: var(--secundare-color);
     gap: 15px;
     font-size: 1.4em;
     border-radius: 10px;
@@ -97,10 +140,11 @@ main {
 
 .done a {
     text-decoration: none; 
-    background-color: rgb(47, 47, 254) !important;
+    /* background-color: rgb(47, 47, 254) !important; */
+    background-color: var(--main-color);
 }
 
-#user-register form, #login-container form, #create-tought form, #edit-thought form{
+#user-register form, #login-container form, #create-tought form, #edit-thought form, #form-seartch{
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -116,27 +160,32 @@ main {
     font-weight: bold;
 }
 
-#user-register form input, #login-container form input, #create-tought form input, #edit-thought form input{
+#user-register form input, #login-container form input, #create-tought form input, #edit-thought form input, #form-seartch input{
     border: none;
     border-radius: 5px;
-    color: blueviolet;
+    color: var(--secundare-color);
     padding: 5px;
     width: 300px;
 }
 
-#user-register form input:hover, #login-container form input:hover, #create-tought form input:hover, #edit-thought form input:hover{
+#user-register form input:hover, #login-container form input:hover, #create-tought form input:hover, #edit-thought form input:hover, #form-seartch input:hover{
     transition: .3s;
     width: 310px;
-    box-shadow: 0px 3px 3px blueviolet;
+    box-shadow: 0px 3px 3px var(--secundare-color);
 }
 
 #user-register form button[type="submit"], .done a, #login-container form button, #create-tought form button, #edit-thought form button{
-    background-color: blueviolet;    
-    border: none;
+    background-color: transparent;    
+    border: 1px solid var(--secundare-color);
     cursor: pointer; 
     border-radius: 5px;
     font-size: 1.3em;
     padding: 5px;
+}
+
+#user-register form button[type="submit"]:hover, .done a:hover, #login-container form button:hover, #create-tought form button:hover, #edit-thought form button:hover{
+    transition: .3s;
+    background-color: var(--secundare-color);
 }
 
 .err {
@@ -149,7 +198,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: blueviolet;
+    background-color: var(--secundare-color);
     padding: 10px;
     margin-bottom: 20px;
 }
