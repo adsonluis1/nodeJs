@@ -9,6 +9,19 @@ body {
     background-color: blueviolet;
 }
 
+input{
+    color: black;
+}
+
+h1{
+    display: flex;
+    align-items: center;
+    background-color: blueviolet;
+    padding: 10px;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
 /* header */
 header{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -47,30 +60,24 @@ main {
 
 /* home */
 
-.pensamentos-container h1{
-    margin-bottom: 20px;
-}
-
 /* pensamentos */
-.div-pensamentos{
+.div-pensamentos, .div-myPensamentos{
     display: flex;
     gap: 10px;
     flex-direction: column;
-    border-bottom: 2px solid blueviolet;
+    border: 2px solid blueviolet;
     padding: 10px;
+    margin-bottom: 20px;
 }
 
-.div-title{
-    margin-bottom: 10px;
-}
-
-.div-title h2{
+.div-pensamentos h2, .div-myTitle h2{
     font-size: 1.5em;
+    margin-top: 10px;
 }
 
-.div-title h3{
+.div-title h3, .div-myTitle h3{
     font-size: 1em;
-    color: rgba(255, 255, 255, 0.568);
+    color: rgba(189, 189, 189, 0.568);
 }
 
 /* form user register */
@@ -93,20 +100,14 @@ main {
     background-color: rgb(47, 47, 254) !important;
 }
 
-
-#user-register h1, #login-container h1{
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-#user-register form, #login-container form{
+#user-register form, #login-container form, #create-tought form, #edit-thought form{
     display: flex;
     flex-direction: column;
     align-items: baseline;
     gap: 20px;
 }
 
-#user-register form label, #login-container form label{
+#user-register form label, #login-container form label, #create-tought form label, #edit-thought form label{
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -115,7 +116,7 @@ main {
     font-weight: bold;
 }
 
-#user-register form input, #login-container form input{
+#user-register form input, #login-container form input, #create-tought form input, #edit-thought form input{
     border: none;
     border-radius: 5px;
     color: blueviolet;
@@ -123,13 +124,13 @@ main {
     width: 300px;
 }
 
-#user-register form input:hover, #login-container form input:hover{
+#user-register form input:hover, #login-container form input:hover, #create-tought form input:hover, #edit-thought form input:hover{
     transition: .3s;
     width: 310px;
     box-shadow: 0px 3px 3px blueviolet;
 }
 
-#user-register form button[type="submit"], .done a, #login-container form button{
+#user-register form button[type="submit"], .done a, #login-container form button, #create-tought form button, #edit-thought form button{
     background-color: blueviolet;    
     border: none;
     cursor: pointer; 
@@ -140,4 +141,54 @@ main {
 
 .err {
     color: red;
+}
+
+/* dashbord */
+
+#div-dashbord{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: blueviolet;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#div-dashbord h1{
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+    justify-content: center;
+}
+
+#div-dashbord a{
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.div-myPensamentos{
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    margin-bottom: 20px;
+}
+
+.div-controllsMypensamentos{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.div-controllsMypensamentos a{
+    padding: 3px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+.trash {
+    background-color: red;
+}
+
+.edit {
+    background-color: orangered;
 }
