@@ -1,0 +1,15 @@
+{{!-- pensamentos --}}
+<section id="dashbord">
+    <div id="div-dashbord">
+        <h1>Dashbord</h1>
+
+        
+        <a href="/thought/add" title="Criar um pensamento"><i class="bi bi-plus-circle-fill"></i></a>
+    </div>
+
+    {{#each thoughts}}
+        {{>myPensamentos}}
+    {{/each}}
+    
+
+</section>
