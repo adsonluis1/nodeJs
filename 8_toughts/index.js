@@ -9,6 +9,8 @@ const Post = require('./models/Posts')
 const thoughtRouter = require('./routes/thoughtRourter')
 const userRouter = require('./routes/userRouter') 
 
+
+
 const newEngine = handlebars.create([
     {partialsDir:'views/partials'}
 ])
@@ -52,12 +54,16 @@ app.use((req,res,next) => {
 })
 
 app.get('/', async (req, res)=>{
-    console.log(req.session.account)
+    const email = req.session.account?.email
     const postsJson = await Post.findAll({raw:true})
     const posts = []
     postsJson.map((post)=>{
         const user = JSON.parse(post.user)
         post.user = user
+        post["my"] = false
+        if(email == post.user.email){
+            post.my = true
+        }
         posts.push(post)
     })
     res.render('showPosts',{posts})
