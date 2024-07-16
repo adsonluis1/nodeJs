@@ -1,4 +1,5 @@
 const Users = require('../models/Users')
+const Posts = require('../models/Posts')
 const bcrypt = require('bcryptjs')
 
 async function checkingEmailExists (email){
@@ -23,6 +24,22 @@ module.exports = class UsersControlls {
         res.render('users/login',{erros})
     }
 
+    static async dashbord(req, res){
+    const {email,nome} = req.session.account
+    const user = {
+        email, 
+        nome
+    }
+    const jsonthougths = await Posts.findAll({raw:true,where:{user:user}})
+    const thoughts = []
+    jsonthougths.map((thought)=>{
+        const user = JSON.parse(thought.user)
+        thought.user = user
+        thoughts.push(thought)
+    })
+    await res.render('users/dashbord', {thoughts})
+    }
+
     static async loginAccount(req, res){
         const {email, senha} = req.body
         const erros = {
@@ -32,23 +49,38 @@ module.exports = class UsersControlls {
 
         let account = await Users.findAll({raw:true,where:{email:email}})
         // check exist account
+        account = account[0]
         if(account.length == 0){
             erros.email = true
             res.render('users/login',{erros})
             return
         }
         // check "senha" correct
-        if(account[0].senha != senha){
+        const senhaMatch = bcrypt.compareSync(senha, account.senha)
+        if(!senhaMatch){
             erros.senha = true
             res.render('users/login',{erros})
             return
         }
-        account = account[0]
+        
         
         req.session.account = account
         req.session.save(()=>{
             res.redirect('/')
         })
+    }
+
+    static logoutAccount (req,res){
+        req.session.destroy((err)=>{
+            if(err){
+                console.log(`Not logouted Account: ${err}`)
+                return
+            }
+            console.log('Logouted Account')
+            res.redirect('/')
+        })
+        
+        
     }
 
     static async createAccount(req, res){
