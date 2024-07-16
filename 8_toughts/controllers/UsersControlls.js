@@ -37,7 +37,7 @@ module.exports = class UsersControlls {
         thought.user = user
         thoughts.push(thought)
     })
-    await res.render('users/dashbord', {thoughts})
+    res.render('users/dashbord', {thoughts})
     }
 
     static async loginAccount(req, res){
