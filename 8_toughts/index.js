@@ -6,7 +6,7 @@ const FileStore = require('session-file-store')(session)
 const flash = require('express-flash')
 const conn = require('./db/conn')
 const Post = require('./models/Posts')
-const Users = require('./models/Users')
+const thoughtRouter = require('./routes/thoughtRourter')
 const userRouter = require('./routes/userRouter') 
 
 const newEngine = handlebars.create([
@@ -33,13 +33,13 @@ app.use(
         cookie: {
             segure:false,
             maxAge: 86400000,
-            expires: new Date(Date.now() + 86400000),
             httpOnly: true
         }
     })
 )
 
 app.use('/user', userRouter)
+app.use('/thought', thoughtRouter)
 app.use(flash())
 
 app.use((req,res,next) => {
@@ -52,26 +52,17 @@ app.use((req,res,next) => {
 })
 
 app.get('/', async (req, res)=>{
-    // POST
-    // const title = 'Js >>> all'
-    // const u = {
-    //     email:'adson@gmail.com',
-    //     nome:'Adson Luis'
-    // }
-    // const user = JSON.stringify(u)
-
-    // GET
+    console.log(req.session.account)
     const postsJson = await Post.findAll({raw:true})
     const posts = []
     postsJson.map((post)=>{
-        const obj = JSON.parse(post.user)
-        const user = JSON.parse(obj)
+        const user = JSON.parse(post.user)
         post.user = user
         posts.push(post)
     })
-    console.log(req.session.account)
     res.render('showPosts',{posts})
 })
+
 
 conn.sync()
 .then(()=>{
