@@ -1,0 +1,15 @@
+<header>
+        <picture>
+            <img src="/pictures/logo.png" alt="Logo do toughts">
+        </picture>
+        <nav>
+            <a href="/">Pensamentos</a>
+            {{#if session.account}}                
+                <a href="/user/dashbord" title="Menu de pensamentos">Dashbord</a>
+                <a href="/user/logout" title="Click para sair da conta atual">Sair</a>
+            {{else}}
+                <a href="/user/login" title="Entre na sua conta">Entrar</a>
+                <a href="/user/register" title="Faça o registro de uma conta">Registrar</a>
+            {{/if}}
+        </nav>
+    </header>
