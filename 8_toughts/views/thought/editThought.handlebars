@@ -1,0 +1,13 @@
+<section id="edit-thought">
+    <h1>Editar Pensamento</h1>
+    {{#with thought}}
+    <form action="/thought/edit" method="post">
+        <label >
+            Pensamento
+            <input type="text" name="title" value="{{title}}">
+        </label>
+        <input type="hidden" name="id" value="{{id}}">
+        <button type="submit">Enviar</button>
+    </form>
+    {{/with}}
+</section>
