@@ -1,4 +1,5 @@
 const Posts = require('../models/Posts')
+const {Op} = require('sequelize')
 
 module.exports = class ThoughtControllers {
     static createFormThought(req, res){
@@ -20,6 +21,30 @@ module.exports = class ThoughtControllers {
 
 
         res.render('thought/editThought',{thought})
+    }
+
+    static async showFilterThought(req, res){
+        const {seartch} = req.body
+        const email = req.session.account?.email
+        console.log(seartch)
+        const filter = await Posts.findAll({
+            raw:true,
+            where:{
+                title:{[Op.like]: `%${seartch}%`}
+            }
+        })
+        const filtersPosts = []
+        filter.map((post)=>{
+            const user = JSON.parse(post.user)
+            post.user = user
+            post["my"] = false
+            if(email == post.user.email){
+                post.my = true
+            }
+            filtersPosts.push(post)
+        })
+        console.log(filtersPosts)
+        res.render('showPosts',{filtersPosts})
     }
 
     static async addThought (req, res){
