@@ -2,14 +2,14 @@
     {{#if done}}
     <div class="done">
         <p>Usuario cadastrado !!</p>
-        <a href="/users/login">Ir para o login</a>
+        <a href="/user/login">Ir para o login</a>
     </div>
     {{/if}}
 
 {{#with erros}}
     <h1>Registro</h1>
     
-    <form action="/user/create" method="post">
+    <form action="/user/register" method="post">
         <label>
             Nome
             <input required type="text" name="nome" placeholder="Digite seu nome de usuario">
