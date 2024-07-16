@@ -12,9 +12,11 @@ router.use((req,res,next) => {
     next()
 })
 
+
 router.get('/add',checkAuth, ThoughtControllers.createFormThought)
 router.get('/delete/:id', checkAuth, ThoughtControllers.deleteThought)
 router.get('/edit/:id', checkAuth, ThoughtControllers.editFormThought)
+router.post('/seartch', ThoughtControllers.showFilterThought)
 router.post('/edit', checkAuth, ThoughtControllers.editThought)
 router.post('/add', checkAuth, ThoughtControllers.addThought)
 
