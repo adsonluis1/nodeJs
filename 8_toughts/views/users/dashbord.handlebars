@@ -7,9 +7,11 @@
         <a href="/thought/add" title="Criar um pensamento"><i class="bi bi-plus-circle-fill"></i></a>
     </div>
 
-    {{#each thoughts}}
-        {{>myPensamentos}}
-    {{/each}}
-    
-
+    {{#if thoughts}}
+        {{#each thoughts}}
+            {{>myPensamentos}}
+        {{/each}}
+    {{else}}
+        <h2>Parece que você ainda não postou nenhum pensamento</h2>
+    {{/if}}
 </section>
