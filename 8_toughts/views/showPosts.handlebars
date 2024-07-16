@@ -1,6 +1,25 @@
 <section class="pensamentos-container">
     <h1>Pensamentos</h1>
-    {{#each posts}}
-    {{>pensamentos}}
-    {{/each}}
+    {{>seartch}}
+    {{#if filtersPosts}}
+        {{#each filtersPosts}}
+            {{#if my}}
+                {{>myPensamentos}}
+                {{else}}
+                    {{>pensamentos}}
+            {{/if}}
+        {{/each}}
+
+    {{else}}
+
+        {{#each posts}}
+            {{#if my}}
+                {{>myPensamentos}}
+                {{else}}
+                    {{>pensamentos}}
+            {{/if}}
+        {{/each}}
+    
+    {{/if}}
+    
 </section>
