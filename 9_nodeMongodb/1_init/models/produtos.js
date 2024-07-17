@@ -7,6 +7,11 @@ module.exports = class Product {
         this.description = description
     }
 
+    static showProducts (){
+        const products = conn.db().collection('products').find().toArray()
+       return products
+    }
+
     save(){
         const product = conn.db().collection('products').insertOne({
             name:this.name,
