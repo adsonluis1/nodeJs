@@ -1,8 +1,9 @@
 const Produtos = require('../models/produtos')
 
 module.exports = class ProdutosControllers {
-    static showProducts (req, res){
-        res.render('produtos/showProdutos')
+    static async showProducts (req, res){
+        const products = await Produtos.showProducts()
+        res.render('produtos/showProdutos', {products})
     }
 
     static formCreate (req, res){
