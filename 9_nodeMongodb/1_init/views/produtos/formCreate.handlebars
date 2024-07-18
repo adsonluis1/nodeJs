@@ -1,0 +1,22 @@
+<section id="section-addProdutos">
+    <h1>Criando Produto</h1>
+
+    <form id="form-addProdutos" action="/produtos/create" method="post">
+        <label>
+            Nome
+            <input required placeholder="Digite o nome do produto" type="text" name="name">
+        </label>
+
+        <label>
+            Preço
+            <input required step="0.50" placeholder="Digite o preço do produto" type="number" name="price">
+        </label>
+
+        <label>
+            Descrição
+            <input required placeholder="Digite a descrição do produto" type="text" name="description">
+        </label>
+
+        <input type="submit" value="Enviar">
+    </form>
+</section>
