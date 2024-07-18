@@ -1,5 +1,9 @@
-<div class="produto">
+<div class="div-produto">
     <h2>{{name}}</h2>
-    <p>{{price}}</p>
+    <p>R$: {{price}}</p>
     <p>{{description}}</p>
+    <nav class="nav-produto">
+        <a href="/produtos/delete/{{_id}}">Delete</a>
+        <a href="/produtos/edit/{{_id}}">Editar</a>
+    </nav>
 </div>
