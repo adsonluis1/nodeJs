@@ -1,0 +1,23 @@
+<section id="section-editProduct">
+    <h1>Edição de produto</h1>
+
+    {{#with product}}
+    <form id="form-editProduto" action="/produtos/edit/{{_id}}" method="post">
+    <label>
+        Nome
+        <input type="text" name="name" value="{{name}}">
+    </label>
+
+    <label>
+        Preço
+        <input step="0.50" type="number" name="price" value="{{price}}">
+    </label>
+
+    <label>
+        Descrição
+        <textarea name="description" >{{description}}</textarea>
+    </label>    
+    {{/with}}
+    <input type="submit" value="Enviar">
+    </form>
+</section>
