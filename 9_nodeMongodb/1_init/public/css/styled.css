@@ -6,7 +6,8 @@
 }
 
 :root{
-    --color-main: cadetblue;
+    --color-main: rgb(95, 158, 160);
+    --color-secundary: #424B4C
 }
 
 /* header */
@@ -15,8 +16,10 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: var(--color-secundary);
     padding: 10px;
     margin-bottom: 20px;
+    color: white;
 }
 
 header span{
@@ -29,11 +32,18 @@ header nav{
 }
 
 header a{
+    transition: .5s;
     text-decoration: none;
     font-weight: bolder;
-    color: black;
+    color: white;
     cursor: pointer;
     font-size: 1.3em;
+}
+
+header a:hover{
+    color: var(--color-main);
+    font-size: 1.4em;
+    text-shadow: 2px 2px 8px black;
 }
 
 /* main */
@@ -42,20 +52,87 @@ main{
     padding: 10px;
 }
 
+main h1{
+    font-size: 2em;
+}
+
+/* produtos */
+
+.div-produto{
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 3px;
+    padding: 5px;
+    border-left: 5px solid var(--color-secundary);
+}
+
+.div-produto:hover{
+    padding: 10px;
+    border-left: 10px solid var(--color-main);
+}
+
+.nav-produto{
+    margin-top: 10px;
+}
+
+.nav-produto a{
+    background-color: var(--color-main);
+    color: white;
+    border:1px solid var(--color-secundary);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: 3px;
+}
+
 /* form add produtos */
 
-#form-addProdutos{
+#form-addProdutos, #form-editProduto{
     display: flex;
     align-items: baseline;
     flex-direction: column;
     gap: 10px;
 }
 
-#form-addProdutos label{
+#form-addProdutos label, #form-editProduto label{
     display: flex;
     flex-direction: column;
 }
 
-#form-addProdutos input[type="text"], #form-addProdutos input[type="number"]{
+#form-addProdutos input[type="text"], #form-addProdutos input[type="number"], #form-editProduto input[type="text"], #form-editProduto input[type="number"]{
+    border: none;
+    border-bottom:2px solid var(--color-main);
+    border-radius: 3px;
+    padding: 3px;
     width: 350px;
+}
+
+form textarea{
+    max-width: 350px;
+    max-height: 100px;
+    min-width: 350px;
+    min-height: 100px;
+    border: none;
+    border-bottom:2px solid var(--color-main);
+    border-radius: 3px;
+    padding: 3px;
+}
+
+textarea:focus{
+    outline: 1px solid var(--color-main);
+}
+
+#form-addProdutos input[type="submit"], #form-editProduto input[type="submit"]{
+    background-color: var(--color-main);
+    color: white;
+    border: 1px solid var(--color-secundary);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: 3px;
 }
