@@ -1,5 +1,13 @@
 const BrasileiraoModels = require('../models/brasileiraoModels')
 
+function transformingHoursInNumbers(hours){
+    return Number(hours.replace(':',''))
+}
+
+function transformingNumbersInHours(number){
+    return number.splice(2,0,":")
+}
+
 function makeArrayJogosAnteriores (jogosAnteriores, jogoAnterior){
     if(jogosAnteriores.length == 3){
         jogosAnteriores.splice(0, 0, jogoAnterior)
@@ -34,6 +42,27 @@ module.exports = class brasileiraoA {
         res.status(201).json({message:'The team Successfully in saved '})
     }
 
+    static async getGamesByProximosJogosCampeonato(req,res){
+        try {
+            const proximosJogos = await BrasileiraoModels.getGamesProximosJogosCampeonato()
+            res.json({message:"OK",proximosJogos})
+        } catch (error) {
+            res.json({message:error})
+        }
+    }
+
+    static async removeGamesProximosJogosCampeonatoByTime(req, res){
+        const {horario} = req.body
+        const proximosJogosCampeonato = await BrasileiraoModels.getGamesProximosJogosCampeonato()
+        const horarioInNum = transformingHoursInNumbers(horario)
+        proximosJogosCampeonato.map(async (jogo)=>{
+            if(transformingHoursInNumbers(jogo.horario) + 200 < horarioInNum){
+                await BrasileiraoModels.removeGamesProximosJogosCampeonato(jogo.horario)
+            }
+        })
+        res.json({message:"OK!"})
+    }
+
     static async changingTeamStatisticsProximosJogos(req, res){
         const {casa, fora} = req.body
         const objTimeCasa = await BrasileiraoModels.getTimeByNome(casa)
@@ -62,7 +91,7 @@ module.exports = class brasileiraoA {
         })
         
 
-        res.status(200).json({message:'ok'})
+        res.status(201).json({message:'ok'})
     }
 
     static async changingTeamStatistics(req, res){
