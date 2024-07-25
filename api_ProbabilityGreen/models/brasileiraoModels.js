@@ -21,6 +21,14 @@ module.exports = class BrasileiraoModels {
         return await client.db().collection('brasileiraoA').findOne({nome:nome})
     }
 
+    static async getGamesProximosJogosCampeonato(){
+        return await client.db().collection('proximosJogosBrasileiraoA').find().toArray()
+    }
+
+    static async removeGamesProximosJogosCampeonato(horario){
+        await client.db().collection('proximosJogosBrasileiraoA').deleteMany({horario:horario})
+    }
+
     static async getTable(){
         return await client.db().collection('brasileiraoA').find().toArray()
     }
