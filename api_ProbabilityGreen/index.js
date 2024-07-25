@@ -1,5 +1,4 @@
 const express = require('express')
-const client = require('./db/conn')
 const brasileiraoARouter = require('./routes/brasileiraoRoutes')
 const app = express()
 
@@ -7,8 +6,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use('/brasileiraoA', brasileiraoARouter)
 
-app.get('/',(req,res)=>{
-    app.json({message:'ola mundo'})
+app.get('/', async (req,res)=>{
+    res.json({message:'ola mundo'})
 })
 
 app.listen(3333,()=>{
