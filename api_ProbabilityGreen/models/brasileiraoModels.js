@@ -1,5 +1,14 @@
 const client = require('../db/conn')
 
+class ProximosJogosBrasileiraoA {
+    constructor(casa,fora,data,hora){
+        this.casa = casa
+        this.fora = fora
+        this.data = data
+        this.hora = hora 
+    }
+}
+
 module.exports = class BrasileiraoModels {
     constructor(nome,rank,vitorias,derrotas,empates,golsMarcados,golsSofridos,saldoGols,jogosAnteriores,proximosJogos,pontos,posicao,id){
         this.nome = nome
@@ -18,15 +27,24 @@ module.exports = class BrasileiraoModels {
     }
 
     static async getTimeByNome(nome){
-        return await client.db().collection('brasileiraoA').findOne({nome:nome})
+        try {
+            return await client.db().collection('brasileiraoA').findOne({nome:nome})
+        } catch (error) {
+            return error
+        }
     }
 
     static async getGamesProximosJogosCampeonato(){
         return await client.db().collection('proximosJogosBrasileiraoA').find().toArray()
     }
 
-    static async removeGamesProximosJogosCampeonato(horario){
-        await client.db().collection('proximosJogosBrasileiraoA').deleteMany({horario:horario})
+    static async addGamesInProximosJogosCampeonato(casa,fora,data,horario){
+        const proximoJogosBrasileiraoA = new ProximosJogosBrasileiraoA(casa,fora,data,horario)
+        await client.db().collection('proximosJogosBrasileiraoA').insertOne(proximoJogosBrasileiraoA)
+    }
+
+    static async removeGamesProximosJogosCampeonato(horarioGame){
+        await client.db().collection('proximosJogosBrasileiraoA').deleteMany({horario:horarioGame})
     }
 
     static async getTable(){
