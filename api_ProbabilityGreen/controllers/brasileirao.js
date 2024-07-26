@@ -10,18 +10,18 @@ function transformingNumbersInHours(number){
 
 function makeArrayJogosAnteriores (jogosAnteriores, jogoAnterior){
     if(jogosAnteriores.length == 3){
-        jogosAnteriores.splice(0, 0, jogoAnterior)
-        jogosAnteriores.splice(3, 1)
+        jogosAnteriores.splice(2, 0, jogoAnterior)
+        jogosAnteriores.splice(0, 1)
     }
     else if(jogosAnteriores.length < 3)
-        jogosAnteriores.splice(0, 0, jogoAnterior)
+        jogosAnteriores.splice(2, 0, jogoAnterior)
     return jogosAnteriores
 }
 
 function makeArrayProximosJogos (proximosJogos, adversario){
     if(proximosJogos.length == 3){
         proximosJogos.splice(0, 0, adversario)
-        proximosJogos.splice(3, 1)
+        proximosJogos.splice(2, 1)
     }
     else if(proximosJogos.length < 3)
         proximosJogos.splice(0, 0, adversario)
@@ -40,6 +40,24 @@ module.exports = class brasileiraoA {
             return
         }
         res.status(201).json({message:'The team Successfully in saved '})
+    }
+
+    static async getTimeByName(req, res){
+        let time
+        let timeName = req.url.replace('/','')
+        timeName = timeName.replace(timeName.charAt(0),timeName.charAt(0).toUpperCase())
+        time = await BrasileiraoModels.getTimeByNome(timeName)
+        if(time == null){
+            res.status(404).json({messsage:'Team was not found'})
+            return
+        }
+        res.json({messsage:'Ok',time})
+    }
+
+    static async addGamesInProximosJogos(req, res){
+        const {casa,fora,data,horario} = req.body
+        await BrasileiraoModels.addGamesInProximosJogosCampeonato(casa,fora,data,horario)
+        res.json({message:'OK'})
     }
 
     static async getGamesByProximosJogosCampeonato(req,res){
