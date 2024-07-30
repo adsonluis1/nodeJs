@@ -10,18 +10,18 @@ function transformingNumbersInHours(number){
 
 function makeArrayJogosAnteriores (jogosAnteriores, jogoAnterior){
     if(jogosAnteriores.length == 3){
-        jogosAnteriores.splice(2, 0, jogoAnterior)
-        jogosAnteriores.splice(0, 1)
+        jogosAnteriores.splice(2, 1)
+        jogosAnteriores.splice(0, 0, jogoAnterior)
     }
     else if(jogosAnteriores.length < 3)
-        jogosAnteriores.splice(2, 0, jogoAnterior)
+        jogosAnteriores.splice(0, 0, jogoAnterior)
     return jogosAnteriores
 }
 
 function makeArrayProximosJogos (proximosJogos, adversario){
     if(proximosJogos.length == 3){
-        proximosJogos.splice(0, 0, adversario)
         proximosJogos.splice(2, 1)
+        proximosJogos.splice(0, 0, adversario)
     }
     else if(proximosJogos.length < 3)
         proximosJogos.splice(0, 0, adversario)
@@ -44,7 +44,7 @@ module.exports = class brasileiraoA {
 
     static async getTimeByName(req, res){
         let time
-        let timeName = req.url.replace('/','')
+        let timeName = decodeURIComponent(req.url.replace('/',''))
         timeName = timeName.replace(timeName.charAt(0),timeName.charAt(0).toUpperCase())
         time = await BrasileiraoModels.getTimeByNome(timeName)
         if(time == null){
@@ -70,12 +70,12 @@ module.exports = class brasileiraoA {
     }
 
     static async removeGamesProximosJogosCampeonatoByTime(req, res){
-        const {horario} = req.body
+        const {horario, data} = req.body
         const proximosJogosCampeonato = await BrasileiraoModels.getGamesProximosJogosCampeonato()
         const horarioInNum = transformingHoursInNumbers(horario)
         proximosJogosCampeonato.map(async (jogo)=>{
-            if(transformingHoursInNumbers(jogo.horario) + 200 < horarioInNum){
-                await BrasileiraoModels.removeGamesProximosJogosCampeonato(jogo.horario)
+            if(transformingHoursInNumbers(jogo.hora) + 200 < horarioInNum){
+                await BrasileiraoModels.removeGamesProximosJogosCampeonato(jogo.hora, data)
             }
         })
         res.json({message:"OK!"})
@@ -85,9 +85,10 @@ module.exports = class brasileiraoA {
         const {casa, fora} = req.body
         const objTimeCasa = await BrasileiraoModels.getTimeByNome(casa)
         const objTimeFora = await BrasileiraoModels.getTimeByNome(fora)
+
         const arrProximosJogosCasa = makeArrayProximosJogos(objTimeCasa.proximosJogos,fora)
         const arrProximosJogosFora = makeArrayProximosJogos(objTimeFora.proximosJogos,casa)
-        
+
         try {
             await BrasileiraoModels.changingStatisticsProximosJogos(casa,arrProximosJogosCasa)
             await BrasileiraoModels.changingStatisticsProximosJogos(fora,arrProximosJogosFora)
@@ -100,9 +101,31 @@ module.exports = class brasileiraoA {
         res.status(201).json({message:'Successfully in add new adversario '})
     }
 
+    static async getTable(req, res){
+        try {
+            const table = await BrasileiraoModels.getTable()
+            res.json({message:"OK",table})
+        } catch (error) {
+            res.status(400).json({message:error})
+        }
+    }
+
     static async patchTable(req, res){
         const table = await BrasileiraoModels.getTable()
-        const updatedtable = table.sort((a,b)=> b.pontos - a.pontos )
+        const updatedtable = table.sort((a,b)=>{
+            if(b.pontos != a.pontos)
+                return b.pontos - a.pontos
+            
+            else if(b.vitorias != a.vitorias)
+                return b.vitorias - a.vitorias
+            // saldo de gols
+            else if(b.saldoGols != a.saldoGols)
+                return b.saldoGols - a.saldoGols
+
+            // mais gols pro
+            else if(b.golsMarcados != a.golsMarcados)
+                return b.golsMarcados - a.golsMarcados
+        })
         updatedtable.map(async (times,index)=>{
             times.posicao = index+1
             await BrasileiraoModels.updateTable(times)
@@ -117,8 +140,16 @@ module.exports = class brasileiraoA {
         const golsMarcados = Number(golsCasa) + Number(golsFora)
         let ambosMarca = false
         if(golsCasa > 0 || golsFora > 0) ambosMarca = true
-        const resultado = golsCasa > golsFora?"Casa":"Fora"
         
+        let resultado
+        if(golsCasa > golsFora)
+            resultado = 'Casa'
+        else if(golsCasa == golsFora)
+            resultado = 'Empate'
+        else
+            resultado = 'Fora'
+        
+
         const jogoAnterior = {
             adversario:casa,
             casa,
@@ -132,6 +163,10 @@ module.exports = class brasileiraoA {
 
         if(jogoAnterior.casa == jogoAnterior.adversario){
             const time = await BrasileiraoModels.getTimeByNome(jogoAnterior.fora)
+            if(time == null){
+                res.status(404).json({message:'Team not found'})
+                return
+            }
             let {jogosAnteriores} = time
             time.golsMarcados+= jogoAnterior.golsFora
             time.golsSofridos+= jogoAnterior.golsCasa
@@ -163,7 +198,10 @@ module.exports = class brasileiraoA {
 
         if(jogoAnterior.casa != jogoAnterior.adversario){
             const time= await BrasileiraoModels.getTimeByNome(jogoAnterior.casa)
-            console.log(time)
+            if(time == null){
+                res.status(404).json({message:'Team not found'})
+                return
+            }
             let {jogosAnteriores} = time
             
             time.golsMarcados+= jogoAnterior.golsCasa
@@ -183,7 +221,6 @@ module.exports = class brasileiraoA {
             
             jogosAnteriores = makeArrayJogosAnteriores(jogosAnteriores, jogoAnterior)
             time.jogosAnteriores = jogosAnteriores
-            console.log(time)
             // adicionando array de jogos anteriores atulizados ao db
             try {
                 await BrasileiraoModels.changingStatistics(jogoAnterior.casa, time)
