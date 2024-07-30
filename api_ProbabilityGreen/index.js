@@ -1,7 +1,9 @@
 const express = require('express')
 const brasileiraoARouter = require('./routes/brasileiraoRoutes')
+const cors = require('cors')
 const app = express()
 
+app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use('/brasileiraoA', brasileiraoARouter)
