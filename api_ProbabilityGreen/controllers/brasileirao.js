@@ -139,7 +139,7 @@ module.exports = class brasileiraoA {
         const {fora,casa,golsCasa,golsFora} = req.body
         const golsMarcados = Number(golsCasa) + Number(golsFora)
         let ambosMarca = false
-        if(golsCasa > 0 || golsFora > 0) ambosMarca = true
+        if(golsCasa > 0 && golsFora > 0) ambosMarca = true
         
         let resultado
         if(golsCasa > golsFora)
